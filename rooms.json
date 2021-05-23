@@ -1,0 +1,404 @@
+[
+    {
+        "name": "Game Room",
+        "doors": [
+            "N",
+            "E",
+            "S"
+        ],
+        "card": "event",
+        "floors": 7
+    },
+    {
+        "name": "Organ Room",
+        "doors": [
+            "W",
+            "S"
+        ],
+        "card": "event",
+        "floors": 7
+    },
+    {
+        "name": "Dusty Hallway",
+        "doors": [
+            "N",
+            "E",
+            "S",
+            "W"
+        ],
+        "card": "none",
+        "floors": 7
+    },
+    {
+        "name": "Statuary Corridor",
+        "doors": [
+            "N",
+            "S"
+        ],
+        "card": "event",
+        "floors": 7
+    },
+    {
+        "name": "Junk Room",
+        "doors": [
+            "W",
+            "S"
+        ],
+        "card": "omen",
+        "floors": 7
+    },
+    {
+        "name": "Organ Room",
+        "doors": [
+            "N",
+            "E",
+            "S",
+            "W"
+        ],
+        "card": "none",
+        "floors": 7
+    },
+    {
+        "name": "Catacombs",
+        "doors": [
+            "N",
+            "S"
+        ],
+        "card": "omen",
+        "floors": 1
+    },
+    {
+        "name": "Furnace Room",
+        "doors": [
+            "N",
+            "W",
+            "S"
+        ],
+        "card": "omen",
+        "floors": 1
+    },
+    {
+        "name": "Stairs From the Basement",
+        "doors": [
+            "N",
+            "S"
+        ],
+        "card": "none",
+        "floors": 1
+    },
+    {
+        "name": "Underground Lake",
+        "doors": [
+            "N",
+            "E"
+        ],
+        "card": "event",
+        "floors": 1
+    },
+    {
+        "name": "Wine Cellar",
+        "doors": [
+            "N",
+            "S"
+        ],
+        "card": "item",
+        "floors": 1
+    },
+    {
+        "name": "Chasm",
+        "doors": [
+            "E",
+            "W"
+        ],
+        "card": "none",
+        "floors": 1
+    },
+    {
+        "name": "Larder",
+        "doors": [
+            "N",
+            "S"
+        ],
+        "card": "item",
+        "floors": 1
+    },
+    {
+        "name": "Crypt",
+        "doors": [
+            "N"
+        ],
+        "card": "event",
+        "floors": 1
+    },
+    {
+        "name": "Pentagram Chamber",
+        "doors": [
+            "N",
+            "S"
+        ],
+        "card": "omen",
+        "floors": 1
+    },
+    {
+        "name": "Kitchen",
+        "doors": [
+            "N",
+            "W"
+        ],
+        "card": "omen",
+        "floors": 3
+    },
+    {
+        "name": "Abandoned Room",
+        "doors": [
+            "N",
+            "E",
+            "S",
+            "W"
+        ],
+        "card": "omen",
+        "floors": 3
+    },
+    {
+        "name": "Collapsed Room",
+        "doors": [
+            "N",
+            "E",
+            "S",
+            "W"
+        ],
+        "card": "none",
+        "floors": 6
+    },
+    {
+        "name": "Charred Room",
+        "doors": [
+            "N",
+            "E",
+            "S",
+            "W"
+        ],
+        "card": "omen",
+        "floors": 6
+    },
+    {
+        "name": "Library",
+        "doors": [
+            "W",
+            "S"
+        ],
+        "card": "event",
+        "floors": 6
+    },
+    {
+        "name": "Bloody Room",
+        "doors": [
+            "N",
+            "E",
+            "S",
+            "W"
+        ],
+        "card": "item",
+        "floors": 6
+    },
+    {
+        "name": "Chapel",
+        "doors": [
+            "N"
+        ],
+        "card": "event",
+        "floors": 6
+    },
+    {
+        "name": "Conservatory",
+        "doors": [
+            "N"
+        ],
+        "card": "event",
+        "floors": 6
+    },
+    {
+        "name": "Dining Room",
+        "doors": [
+            "N",
+            "E"
+        ],
+        "card": "omen",
+        "floors": 2
+    },
+    {
+        "name": "Patio",
+        "doors": [
+            "N",
+            "S",
+            "W"
+        ],
+        "card": "event",
+        "floors": 2
+    },
+    {
+        "name": "Coal Chute",
+        "doors": [
+            "N"
+        ],
+        "card": "none",
+        "floors": 2
+    },
+    {
+        "name": "Graveyard",
+        "doors": [
+            "S"
+        ],
+        "card": "event",
+        "floors": 2
+    },
+    {
+        "name": "Ballroom",
+        "doors": [
+            "N",
+            "E",
+            "S",
+            "W"
+        ],
+        "card": "event",
+        "floors": 2
+    },
+    {
+        "name": "Gardens",
+        "doors": [
+            "N",
+            "S"
+        ],
+        "card": "event",
+        "floors": 2
+    },
+    {
+        "name": "Dining Room",
+        "doors": [
+            "N",
+            "S"
+        ],
+        "card": "event",
+        "floors": 5
+    },
+    {
+        "name": "Servants' Quarters",
+        "doors": [
+            "N",
+            "E",
+            "S",
+            "W"
+        ],
+        "card": "omen",
+        "floors": 5
+    },
+    {
+        "name": "Operating Laboratory",
+        "doors": [
+            "E",
+            "S"
+        ],
+        "card": "event",
+        "floors": 5
+    },
+    {
+        "name": "Gymnasium",
+        "doors": [
+            "E",
+            "S"
+        ],
+        "card": "omen",
+        "floors": 5
+    },
+    {
+        "name": "Storeroom",
+        "doors": [
+            "N"
+        ],
+        "card": "item",
+        "floors": 5
+    },
+    {
+        "name": "Vault",
+        "doors": [
+            "N"
+        ],
+        "card": "event",
+        "floors": 5
+    },
+    {
+        "name": "Master Bedroom",
+        "doors": [
+            "N",
+            "W"
+        ],
+        "card": "omen",
+        "floors": 4
+    },
+    {
+        "name": "Tower",
+        "doors": [
+            "E",
+            "W"
+        ],
+        "card": "event",
+        "floors": 4
+    },
+    {
+        "name": "Bedroom",
+        "doors": [
+            "E",
+            "W"
+        ],
+        "card": "event",
+        "floors": 4
+    },
+    {
+        "name": "Attic",
+        "doors": [
+            "S"
+        ],
+        "card": "event",
+        "floors": 4
+    },
+    {
+        "name": "Balcony",
+        "doors": [
+            "N",
+            "S"
+        ],
+        "card": "omen",
+        "floors": 4
+    },
+    {
+        "name": "Gallery",
+        "doors": [
+            "N",
+            "S"
+        ],
+        "card": "omen",
+        "floors": 4
+    },
+    {
+        "name": "Basement Landing",
+        "doors": [
+            "N",
+            "E",
+            "S",
+            "W"
+        ],
+        "card": "none",
+        "floors": 1
+    },
+    {
+        "name": "Upper Landing",
+        "doors": [
+            "N",
+            "E",
+            "S",
+            "W"
+        ],
+        "card": "none",
+        "floors": 4
+    }
+]
