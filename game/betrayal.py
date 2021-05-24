@@ -18,22 +18,44 @@ class Betrayal:
         # create floors
         self.ground = Gameboard()
 
-    def run_game(self):
+        self.camera = (0, 0)
+        
+        self.redraw()
 
+    def run_game(self):
         running = True
         while running:
+            redraw_needed = False
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_x, mouse_y = pygame.mouse.get_pos()
                     room = self.pick_room()
-                    self.ground.place_tile(room, (0, 0))
-
-            self.screen.fill(s.WHITE)
-            self.ground.draw_board(self.screen)
-            pygame.display.flip()
-
+                    self.ground.place_tile(room, (mouse_x // s.TILE_SIZE + self.camera[0], mouse_y // s.TILE_SIZE + self.camera[1]))
+                    redraw_needed = True
+                if event.type == pygame.KEYDOWN:
+                    keys = pygame.key.get_pressed()
+                    if keys[pygame.K_LEFT]:
+                        self.camera = (self.camera[0] - 1, self.camera[1])
+                        redraw_needed = True
+                    elif keys[pygame.K_RIGHT]:
+                        self.camera = (self.camera[0] + 1, self.camera[1])
+                        redraw_needed = True
+                    elif keys[pygame.K_UP]:
+                        self.camera = (self.camera[0], self.camera[1] - 1)
+                        redraw_needed = True
+                    elif keys[pygame.K_DOWN]:
+                        self.camera = (self.camera[0], self.camera[1] + 1)
+                        redraw_needed = True
+            if redraw_needed:
+                self.redraw()
         pygame.quit()
+
+    def redraw(self):
+        self.screen.fill(s.WHITE)
+        self.ground.draw_board(self.screen, self.camera)
+        pygame.display.flip()
 
     def pick_room(self):
         return r.choice(self.rooms)

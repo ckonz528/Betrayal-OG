@@ -23,8 +23,12 @@ class Gameboard:
         self.tiles = []
 
     def draw_board(self, screen, cam_pos=(0, 0)):
-        for tile, pos in self.tiles:
-            screen.blit(tile.surf, (0, 0))
+        tiles_across = s.WIDTH // s.TILE_SIZE
+        tiles_down = s.HEIGHT // s.TILE_SIZE
+        camx, camy = cam_pos
+        for tile, (xpos, ypos) in self.tiles:
+            if 0 <= xpos - camx <= tiles_across and 0 <= ypos - camy <= tiles_down:
+                screen.blit(tile.surf, ((xpos - camx) * s.TILE_SIZE, (ypos - camy) * s.TILE_SIZE))
 
     def place_tile(self, tile, pos):
         self.tiles.append((tile, pos))
