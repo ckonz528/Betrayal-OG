@@ -1,7 +1,7 @@
 import pygame
 import json
-import settings as s
-from gameboard import Tile, Gameboard
+from . import settings as s
+from .gameboard import Tile, Gameboard
 import random as r
 
 
@@ -12,7 +12,7 @@ class Betrayal:
         pygame.display.set_caption(s.title)
 
         # load tiles
-        tiles = json.load(open('../assets/data/rooms.json'))
+        tiles = json.load(open('assets/data/rooms.json'))
         self.rooms = [Tile(room_info) for room_info in tiles]
 
         # create floors
@@ -37,8 +37,3 @@ class Betrayal:
 
     def pick_room(self):
         return r.choice(self.rooms)
-
-
-if __name__ == '__main__':
-    betrayal = Betrayal()
-    betrayal.run_game()

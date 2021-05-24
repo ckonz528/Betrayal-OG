@@ -1,6 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
-import settings as s
+import game.settings as s
 
 
 class Tile(Sprite):
@@ -14,7 +14,7 @@ class Tile(Sprite):
         img = self.name.lower().replace(' ', '_').replace("'", '')
 
         self.surf = pygame.image.load(
-            f'../assets/images/rooms/{img}.png').convert()
+            f'assets/images/rooms/{img}.png').convert()
         self.surf = pygame.transform.scale(
             self.surf, (s.TILE_SIZE, s.TILE_SIZE))
 
