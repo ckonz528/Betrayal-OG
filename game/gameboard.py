@@ -13,8 +13,7 @@ class Tile(Sprite):
         # construct image file name
         img = self.name.lower().replace(' ', '_').replace("'", '')
 
-        self.surf = pygame.image.load(
-            f'assets/images/rooms/{img}.png').convert()
+        self.surf = pygame.image.load(s.get_path('assets', f'images/rooms/{img}.png')).convert()
         self.surf = pygame.transform.scale(
             self.surf, (s.TILE_SIZE, s.TILE_SIZE))
 

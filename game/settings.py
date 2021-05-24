@@ -1,7 +1,13 @@
+import os
+BASE_PATH = os.getcwd()
+
+get_path = lambda folder, file: os.path.join(BASE_PATH, folder, file)
+
 # display settings
 WIDTH = 1000
 HEIGHT = 600
-title = 'Betrayal at House on a Hill'
+
+TITLE = 'Betrayal at House on a Hill'
 
 TILE_SIZE = 200
 
