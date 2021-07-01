@@ -400,5 +400,34 @@
         ],
         "card": "none",
         "floors": 4
+    },
+    {
+        "name": "Entrance Hall",
+        "doors": [
+            "N",
+            "S",
+            "W"
+        ],
+        "card": "none",
+        "floors": 2
+    },
+    {
+        "name": "Foyer",
+        "doors": [
+            "N",
+            "E",
+            "S",
+            "W"
+        ],
+        "card": "none",
+        "floors": 4
+    },
+    {
+        "name": "Grand Staircase",
+        "doors": [
+            "E"
+        ],
+        "card": "none",
+        "floors": 4
     }
 ]

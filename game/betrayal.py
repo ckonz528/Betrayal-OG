@@ -13,10 +13,15 @@ class Betrayal:
 
         # load tiles
         tiles = json.load(open(s.get_path('assets', 'data/rooms.json')))
-        self.rooms = [Tile(room_info) for room_info in tiles]
+        self.rooms = {room_info['name']: Tile(
+            room_info) for room_info in tiles}
 
         # create floors
         self.ground = Gameboard()
+        self.ground.place_tile(self.rooms['Entrance Hall'], (4, 1))
+        self.ground.place_tile(self.rooms['Foyer'], (3, 1))
+        self.ground.place_tile(self.rooms['Grand Staircase'], (2, 1))
+        self.ground.recent_pos = None
 
         self.camera = (0, 0)
         self.running = True
@@ -28,12 +33,18 @@ class Betrayal:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
+
+                # place tiles
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_x, mouse_y = pygame.mouse.get_pos()
                     room = self.pick_room()
-                    self.ground.place_tile(room, (mouse_x // s.TILE_SIZE + self.camera[0], mouse_y // s.TILE_SIZE + self.camera[1]))
+                    self.ground.place_tile(
+                        room, (mouse_x // s.TILE_SIZE + self.camera[0], mouse_y // s.TILE_SIZE + self.camera[1]))
                     redraw_needed = True
+
+                # key down event listeners
                 if event.type == pygame.KEYDOWN:
+                    # move camera
                     keys = pygame.key.get_pressed()
                     if keys[pygame.K_LEFT]:
                         self.camera = (self.camera[0] - 1, self.camera[1])
@@ -47,13 +58,17 @@ class Betrayal:
                     elif keys[pygame.K_DOWN]:
                         self.camera = (self.camera[0], self.camera[1] + 1)
                         redraw_needed = True
+
+                    # exit game on esc
                     elif keys[pygame.K_ESCAPE]:
                         self.running = False
+
+                    # rotate tiles
                     elif keys[pygame.K_n]:
-                        self.ground.tiles[0, 0].rotate('left')
+                        self.ground.rotate_recent('left')
                         redraw_needed = True
                     elif keys[pygame.K_m]:
-                        self.ground.tiles[0, 0].rotate('right')
+                        self.ground.rotate_recent('right')
                         redraw_needed = True
             if redraw_needed:
                 self.redraw()
@@ -65,4 +80,5 @@ class Betrayal:
         pygame.display.flip()
 
     def pick_room(self):
-        return r.choice(self.rooms)
+        room = r.choice(list(self.rooms.keys()))
+        return self.rooms[room]

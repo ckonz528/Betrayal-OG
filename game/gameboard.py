@@ -14,7 +14,8 @@ class Tile(Sprite):
         # construct image file name
         img = self.name.lower().replace(' ', '_').replace("'", '')
 
-        self.surf = pygame.image.load(s.get_path('assets', f'images/rooms/{img}.png')).convert()
+        self.surf = pygame.image.load(s.get_path(
+            'assets', f'images/rooms/{img}.png')).convert()
         self.surf = pygame.transform.scale(
             self.surf, (s.TILE_SIZE, s.TILE_SIZE))
 
@@ -34,6 +35,7 @@ class Tile(Sprite):
 class Gameboard:
     def __init__(self):
         self.tiles = {}
+        self.recent_pos = None
 
     def draw_board(self, screen, cam_pos=(0, 0)):
         tiles_across = s.WIDTH // s.TILE_SIZE
@@ -42,8 +44,16 @@ class Gameboard:
         for xpos, ypos in self.tiles:
             tile = self.tiles[xpos, ypos]
             if 0 <= xpos - camx <= tiles_across and 0 <= ypos - camy <= tiles_down:
-                screen.blit(tile.surf, ((xpos - camx) * s.TILE_SIZE, (ypos - camy) * s.TILE_SIZE))
+                screen.blit(tile.surf, ((xpos - camx) *
+                                        s.TILE_SIZE, (ypos - camy) * s.TILE_SIZE))
 
     def place_tile(self, tile, pos):
         # TODO: add logic to check whether it is legal to place this tile here
         self.tiles[pos] = tile
+        self.recent_pos = pos
+
+    def rotate_recent(self, direction):
+        if self.recent_pos == None:
+            pass
+        else:
+            self.tiles[self.recent_pos].rotate(direction)
