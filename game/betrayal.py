@@ -19,16 +19,15 @@ class Betrayal:
         self.ground = Gameboard()
 
         self.camera = (0, 0)
-        
+        self.running = True
         self.redraw()
 
     def run_game(self):
-        running = True
-        while running:
+        while self.running:
             redraw_needed = False
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    self.running = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_x, mouse_y = pygame.mouse.get_pos()
                     room = self.pick_room()
@@ -47,6 +46,14 @@ class Betrayal:
                         redraw_needed = True
                     elif keys[pygame.K_DOWN]:
                         self.camera = (self.camera[0], self.camera[1] + 1)
+                        redraw_needed = True
+                    elif keys[pygame.K_ESCAPE]:
+                        self.running = False
+                    elif keys[pygame.K_n]:
+                        self.ground.tiles[0, 0].rotate('left')
+                        redraw_needed = True
+                    elif keys[pygame.K_m]:
+                        self.ground.tiles[0, 0].rotate('right')
                         redraw_needed = True
             if redraw_needed:
                 self.redraw()

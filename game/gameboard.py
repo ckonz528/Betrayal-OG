@@ -1,4 +1,5 @@
 import pygame
+from pygame import locals
 from pygame.sprite import Sprite
 import game.settings as s
 
@@ -6,7 +7,7 @@ import game.settings as s
 class Tile(Sprite):
     def __init__(self, tile_info):
         self.name = tile_info['name']
-        self.doors = tile_info['doors']
+        self.doors = [d in tile_info['doors'] for d in 'NESW']
         self.card = tile_info['card']
         self.floors = tile_info['floors']
 
@@ -17,18 +18,32 @@ class Tile(Sprite):
         self.surf = pygame.transform.scale(
             self.surf, (s.TILE_SIZE, s.TILE_SIZE))
 
+    def rotate(self, direction):
+        """Two things need to happen here:
+        1. Change the elements in 'doors' so they correspond to the rotated tile
+        2. Rotate the actual surface image so it can be drawn correctly"""
+        assert direction in ('left', 'right')
+        if direction == 'left':
+            self.doors = self.doors[1:] + self.doors[:1]
+            self.surf = pygame.transform.rotate(self.surf, -90)
+        else:
+            self.doors = self.doors[-1:] + self.doors[:-1]
+            self.surf = pygame.transform.rotate(self.surf, 90)
+
 
 class Gameboard:
     def __init__(self):
-        self.tiles = []
+        self.tiles = {}
 
     def draw_board(self, screen, cam_pos=(0, 0)):
         tiles_across = s.WIDTH // s.TILE_SIZE
         tiles_down = s.HEIGHT // s.TILE_SIZE
         camx, camy = cam_pos
-        for tile, (xpos, ypos) in self.tiles:
+        for xpos, ypos in self.tiles:
+            tile = self.tiles[xpos, ypos]
             if 0 <= xpos - camx <= tiles_across and 0 <= ypos - camy <= tiles_down:
                 screen.blit(tile.surf, ((xpos - camx) * s.TILE_SIZE, (ypos - camy) * s.TILE_SIZE))
 
     def place_tile(self, tile, pos):
-        self.tiles.append((tile, pos))
+        # TODO: add logic to check whether it is legal to place this tile here
+        self.tiles[pos] = tile
