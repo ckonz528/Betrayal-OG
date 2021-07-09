@@ -13,16 +13,30 @@ class Betrayal:
 
         # load tiles
         tiles = json.load(open(s.get_path('assets', 'data/rooms.json')))
-        self.rooms = {room_info['name']: Tile(
+        self.rooms: dict[str, Tile] = {room_info['name']: Tile(
             room_info) for room_info in tiles}
 
         # create floors
+        '''make a dictionary of floors
+           have a string that tracks current floor (self.current_floor)
+           replace self.ground with self.floors['ground'] or self.floors[self.current_floor]
+           place starting tiles
+           add logic for keys to switch floors (b,g,u)
+        '''
         self.ground = Gameboard()
-        self.ground.place_tile(self.rooms['Entrance Hall'], (4, 1))
-        self.ground.place_tile(self.rooms['Foyer'], (3, 1))
-        self.ground.place_tile(self.rooms['Grand Staircase'], (2, 1))
+        start_tiles = ['Entrance Hall', 'Foyer', 'Grand Staircase']
+        x = 4
+        for room in start_tiles:
+            self.ground.place_tile(self.rooms[room], (x, 1))
+            x -= 1
+            del self.rooms[room]
         self.ground.recent_pos = None
 
+        # shuffle list of tiles
+        self.room_keys: list[str] = list(self.rooms.keys())
+        r.shuffle(self.room_keys)
+
+        # place camera in starting position
         self.camera = (0, 0)
         self.running = True
         self.redraw()
@@ -38,9 +52,13 @@ class Betrayal:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_x, mouse_y = pygame.mouse.get_pos()
                     room = self.pick_room()
-                    self.ground.place_tile(
-                        room, (mouse_x // s.TILE_SIZE + self.camera[0], mouse_y // s.TILE_SIZE + self.camera[1]))
-                    redraw_needed = True
+                    if room == None:
+                        # TODO: add log for messages
+                        print('No more tiles available for this floor.')
+                    else:
+                        self.ground.place_tile(
+                            room, (mouse_x // s.TILE_SIZE + self.camera[0], mouse_y // s.TILE_SIZE + self.camera[1]))
+                        redraw_needed = True
 
                 # key down event listeners
                 if event.type == pygame.KEYDOWN:
@@ -80,5 +98,9 @@ class Betrayal:
         pygame.display.flip()
 
     def pick_room(self):
-        room = r.choice(list(self.rooms.keys()))
-        return self.rooms[room]
+        for i, room_name in enumerate(self.room_keys):
+            if self.rooms[room_name].floors == 2:
+                room = self.rooms[room_name]
+                del self.room_keys[i]
+                return room
+        return None
