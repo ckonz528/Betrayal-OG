@@ -6,7 +6,7 @@
         {
             "label": "Run Python",
             "type": "shell",
-            "command": "python3 -m game",
+            "command": "python -m game",
             "problemMatcher": [],
             "group": {
                 "kind": "build",
