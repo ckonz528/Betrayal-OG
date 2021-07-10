@@ -13,6 +13,7 @@ class Player(Sprite):
         self.sanity_bar = player_info['sanity']
         self.knowledge_bar = player_info['knowledge']
 
+        # set inital position
         self.pos = (4, 1)
 
         # set base attribute levels

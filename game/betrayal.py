@@ -2,6 +2,7 @@ import pygame
 import json
 import game.settings as s
 from .gameboard import Tile, Gameboard
+from .players import Player
 import random as r
 
 
@@ -11,6 +12,7 @@ class Betrayal:
         self.screen = pygame.display.set_mode((s.WIDTH, s.HEIGHT))
         pygame.display.set_caption(s.TITLE)
 
+        ### SET UP FLOORS ###
         # load tiles
         tiles = json.load(open(s.get_path('assets', 'data/rooms.json')))
         self.rooms: dict[str, Tile] = {room_info['name']: Tile(
@@ -34,16 +36,22 @@ class Betrayal:
             self.rooms['Basement Landing'], (2, 1))
         del self.rooms['Basement Landing']
 
-        # disable rotation for all floors
+        # disable tile rotation for all floors
         for floor in list(self.floors.keys()):
             self.floors[floor].recent_pos = None
 
         # set current floor
         self.current_floor = 'ground'
 
-        # shuffle list of tiles
+        # shuffle "tile stack"
         self.room_keys: list[str] = list(self.rooms.keys())
         r.shuffle(self.room_keys)
+
+        ### SET UP PLAYERS ###
+        # load player info
+        players = json.load(open(s.get_path('assets', 'data/players.json')))
+        self.players: dict[str, Tile] = {player_info['name']: Player(
+            player_info) for player_info in players}
 
         # place camera in starting position
         self.camera = (0, 0)
