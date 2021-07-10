@@ -1,7 +1,9 @@
 import os
 BASE_PATH = os.getcwd()
 
-get_path = lambda folder, file: os.path.join(BASE_PATH, folder, file)
+
+def get_path(folder, file): return os.path.join(BASE_PATH, folder, file)
+
 
 # display settings
 WIDTH = 1000
@@ -9,7 +11,9 @@ HEIGHT = 600
 
 TITLE = 'Betrayal at House on a Hill'
 
+# image sizes
 TILE_SIZE = 200
+PLAYER_SIZE = 75
 
 # colors
 WHITE = (255, 255, 255)

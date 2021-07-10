@@ -49,6 +49,7 @@ class Gameboard:
 
     def place_tile(self, tile, pos):
         # TODO: add logic to check whether it is legal to place this tile here
+        # TODO: add logic to check if there is already a tile there
         self.tiles[pos] = tile
         self.recent_pos = pos
 
