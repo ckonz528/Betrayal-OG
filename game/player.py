@@ -31,3 +31,6 @@ class Player(Sprite):
             'assets', f'images/players/{img}.png')).convert()
         self.surf = pygame.transform.scale(
             self.surf, (s.PLAYER_SIZE, s.PLAYER_SIZE))
+
+    def move_player(self):
+        pass

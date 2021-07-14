@@ -2,7 +2,7 @@ import pygame
 import json
 import game.settings as s
 from .gameboard import Tile, Gameboard
-from .players import Player
+from .player import Player
 import random as r
 
 
@@ -50,8 +50,15 @@ class Betrayal:
         ### SET UP PLAYERS ###
         # load player info
         players = json.load(open(s.get_path('assets', 'data/players.json')))
-        self.players: dict[str, Tile] = {player_info['name']: Player(
+        self.players: dict[str, Player] = {player_info['name']: Player(
             player_info) for player_info in players}
+
+        # test hero
+        # TODO: Replace with user-selected characters
+        # TODO: figure out how to do turns?
+        self.hero = self.players['Peter Akimoto']
+        self.floors['ground'].players = {
+            self.hero.pos: self.hero}
 
         # place camera in starting position
         self.camera = (0, 0)
@@ -92,6 +99,24 @@ class Betrayal:
                         redraw_needed = True
                     elif keys[pygame.K_DOWN]:
                         self.camera = (self.camera[0], self.camera[1] + 1)
+                        redraw_needed = True
+
+                    # move player
+                    elif keys[pygame.K_a]:
+                        self.hero.pos = (
+                            self.hero.pos[0] - 1, self.hero.pos[1])
+                        redraw_needed = True
+                    elif keys[pygame.K_d]:
+                        self.hero.pos = (
+                            self.hero.pos[0] + 1, self.hero.pos[1])
+                        redraw_needed = True
+                    elif keys[pygame.K_w]:
+                        self.hero.pos = (
+                            self.hero.pos[0], self.hero.pos[1] - 1)
+                        redraw_needed = True
+                    elif keys[pygame.K_s]:
+                        self.hero.pos = (
+                            self.hero.pos[0], self.hero.pos[1] + 1)
                         redraw_needed = True
 
                     # exit game on esc
