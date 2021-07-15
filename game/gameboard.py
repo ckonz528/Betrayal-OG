@@ -35,7 +35,7 @@ class Tile(Sprite):
 class Gameboard:
     def __init__(self):
         self.tiles = {}
-        self.players = {}
+        self.players = []
         self.recent_pos = None
 
     def draw_board(self, screen, cam_pos=(0, 0)):
@@ -51,11 +51,11 @@ class Gameboard:
                                         s.TILE_SIZE, (ypos - camy) * s.TILE_SIZE))
 
         # display players
-        for xpos, ypos in self.players:
-            player = self.players[xpos, ypos]
+        for hero in self.players:
+            xpos, ypos = hero.pos
             if 0 <= xpos - camx <= tiles_across and 0 <= ypos - camy <= tiles_down:
-                screen.blit(player.surf, ((xpos - camx) *
-                                          s.TILE_SIZE, (ypos - camy) * s.TILE_SIZE))
+                screen.blit(hero.surf, ((xpos - camx) *
+                                        s.TILE_SIZE, (ypos - camy) * s.TILE_SIZE))
 
     def place_tile(self, tile, pos):
         # TODO: add logic to check whether it is legal to place this tile here

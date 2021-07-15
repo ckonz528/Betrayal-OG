@@ -57,8 +57,7 @@ class Betrayal:
         # TODO: Replace with user-selected characters
         # TODO: figure out how to do turns?
         self.hero = self.players['Peter Akimoto']
-        self.floors['ground'].players = {
-            self.hero.pos: self.hero}
+        self.floors['ground'].players = [self.hero]
 
         # place camera in starting position
         self.camera = (0, 0)
