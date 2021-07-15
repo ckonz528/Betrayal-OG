@@ -13,7 +13,7 @@ TITLE = 'Betrayal at House on a Hill'
 
 # image sizes
 TILE_SIZE = 200
-PLAYER_SIZE = 75
+PLAYER_SIZE = 100
 
 # colors
 WHITE = (255, 255, 255)

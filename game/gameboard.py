@@ -55,7 +55,7 @@ class Gameboard:
             xpos, ypos = hero.pos
             if 0 <= xpos - camx <= tiles_across and 0 <= ypos - camy <= tiles_down:
                 screen.blit(hero.surf, ((xpos - camx) *
-                                        s.TILE_SIZE, (ypos - camy) * s.TILE_SIZE))
+                                        s.TILE_SIZE + s.PLAYER_SIZE * 0.5, (ypos - camy) * s.TILE_SIZE + s.PLAYER_SIZE * 0.5))
 
     def place_tile(self, tile, pos):
         # TODO: add logic to check whether it is legal to place this tile here
