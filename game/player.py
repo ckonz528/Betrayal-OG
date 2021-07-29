@@ -8,21 +8,20 @@ class Player(Sprite):
     def __init__(self, player_info):
         # player stats
         self.name = player_info['name']
-        self.speed_bar = player_info['speed']
-        self.might_bar = player_info['might']
-        self.sanity_bar = player_info['sanity']
-        self.knowledge_bar = player_info['knowledge']
 
-        # set inital position
+        # set inital position on floor
         self.pos = (4, 1)
 
         # set base attribute levels
         self.base = player_info['base']
 
-        self.speed = self.speed_bar[self.base[0]]
-        self.might = self.might_bar[self.base[1]]
-        self.sanity = self.sanity_bar[self.base[2]]
-        self.knowledge = self.knowledge_bar[self.base[3]]
+        # Player stats as dictionary
+        self.stats = {'speed': (player_info['speed'], self.base[0]),
+                      'might': (player_info['might'], self.base[1]),
+                      'sanity': (player_info['sanity'], self.base[2]),
+                      'knowledge': (player_info['knowledge'], self.base[3])}
+
+        self.items = []
 
         # construct image file name
         img = self.name.lower().replace(' ', '_').replace("'", '')
@@ -34,3 +33,18 @@ class Player(Sprite):
 
     def move_player(self):
         pass
+
+    def raise_stat(self, stat, num_levels):
+        self.stats[stat][1] += num_levels
+
+        # check for upper bound
+        if self.stats[stat][1] >= len(self.stats[stat][0]):
+            self.stats[stat][1] = 8
+
+    def lower_stat(self, stat, num_levels):
+        self.stats[stat][1] -= num_levels
+
+        # check for death/ lower bound
+        if self.stats[stat][1] <= 0:
+            # TODO: write death protocol/ check if haunt mode
+            pass
