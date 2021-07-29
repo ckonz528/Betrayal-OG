@@ -35,14 +35,14 @@ class Player(Sprite):
         pass
 
     def raise_stat(self, stat, num_levels):
-        self.stats[stat][1] += num_levels
+        self.stats[stat][1] = self.stats[stat][1] + num_levels
 
         # check for upper bound
         if self.stats[stat][1] >= len(self.stats[stat][0]):
             self.stats[stat][1] = 8
 
     def lower_stat(self, stat, num_levels):
-        self.stats[stat][1] -= num_levels
+        self.stats[stat][1] = self.stats[stat][1] - num_levels
 
         # check for death/ lower bound
         if self.stats[stat][1] <= 0:
