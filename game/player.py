@@ -35,16 +35,27 @@ class Player(Sprite):
         pass
 
     def raise_stat(self, stat, num_levels):
-        self.stats[stat][1] = self.stats[stat][1] + num_levels
+        self.stats[stat] = (self.stats[stat][0],
+                            self.stats[stat][1] + num_levels)
 
         # check for upper bound
         if self.stats[stat][1] >= len(self.stats[stat][0]):
-            self.stats[stat][1] = 8
+            self.stats[stat] = (self.stats[stat][0], 8)
 
     def lower_stat(self, stat, num_levels):
-        self.stats[stat][1] = self.stats[stat][1] - num_levels
+        self.stats[stat] = (self.stats[stat][0],
+                            self.stats[stat][1] - num_levels)
 
         # check for death/ lower bound
         if self.stats[stat][1] <= 0:
             # TODO: write death protocol/ check if haunt mode
             pass
+
+    def physical_damage(self):
+        pass
+
+    def mental_damage(self):
+        pass
+
+    def display_stats(self):
+        pass
