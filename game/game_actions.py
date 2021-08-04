@@ -24,3 +24,16 @@ def stat_roll(player, stat):
 
 def haunt_roll():
     return roll_dice(6)
+
+
+def menu(options):
+    assert len(options) > 0
+    while True:
+        print('Please select an option:')
+        for i, option in enumerate(options):
+            print(f'\t{i + 1} - {option}')
+        selected = int(input('Enter choice: '))
+        if selected < 0 or selected > len(options):
+            continue
+
+        return selected - 1, options[selected - 1]

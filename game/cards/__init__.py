@@ -1,3 +1,6 @@
+from typing import Dict
+
+
 class Item:
     def __init__(self, game_info):
         self.game_info = game_info
@@ -28,15 +31,23 @@ class Item:
             return True
 
 
-def name(n):
-    def decorate(cls):
-        old_init = cls.__init__
+class CardRegistry:
+    def __init__(self):
+        self.registry: Dict[str, Item.__class__] = {}
 
-        def new_init(self, *args, **kwargs):
-            self.name = n
-            old_init(self, *args, **kwargs)
+    def get_instance(self, game_info):
+        pass
 
-        cls.__init__ = new_init
-        return cls
+    def __call__(self, n):
+        def decorate(cls):
+            self.registry[n] = cls
+            old_init = cls.__init__
 
-    return decorate
+            def new_init(self, *args, **kwargs):
+                self.name = n
+                old_init(self, *args, **kwargs)
+
+            cls.__init__ = new_init
+            return cls
+
+        return decorate

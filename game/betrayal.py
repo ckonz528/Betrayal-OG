@@ -12,7 +12,7 @@ class Betrayal:
         self.screen = pygame.display.set_mode((s.WIDTH, s.HEIGHT))
         pygame.display.set_caption(s.TITLE)
 
-        ### SET UP FLOORS ###
+        # SET UP FLOORS #
         # load tiles
         tiles = json.load(open(s.get_path('assets', 'data/rooms.json')))
         self.rooms: dict[str, Tile] = {room_info['name']: Tile(
@@ -47,7 +47,7 @@ class Betrayal:
         self.room_keys: list[str] = list(self.rooms.keys())
         r.shuffle(self.room_keys)
 
-        ### SET UP PLAYERS ###
+        # SET UP PLAYERS #
         # load player info
         players = json.load(open(s.get_path('assets', 'data/players.json')))
         self.players: dict[str, Player] = {player_info['name']: Player(
@@ -75,7 +75,7 @@ class Betrayal:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_x, mouse_y = pygame.mouse.get_pos()
                     room = self.pick_room()
-                    if room == None:
+                    if room is None:
                         # TODO: add log for messages
                         print('No more tiles available for this floor.')
                     else:
