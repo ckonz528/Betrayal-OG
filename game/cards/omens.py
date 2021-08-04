@@ -12,6 +12,7 @@ class Madman(Item):
     def losable(self, player):
         player.change_stat('might', -2)
         player.change_stat('sanity', 1)
+        player.items.remove(self)
 
 
 @name("Spirit Board")
@@ -23,7 +24,7 @@ class SpiritBoard(Item):
         pass
 
     def on_lose(self, player):
-        pass
+        player.items.remove(self)
 
 
 @name("Book")
@@ -45,7 +46,7 @@ class Skull(Item):
         pass
 
     def on_lose(self, player):
-        pass
+        player.items.remove(self)
 
 
 @name("Spear")
@@ -57,7 +58,7 @@ class Spear(Item):
         pass
 
     def on_lose(self, player):
-        pass
+        player.items.remove(self)
 
 
 @name("Medallion")
@@ -69,7 +70,7 @@ class Medallion(Item):
         pass
 
     def on_lose(self, player):
-        pass
+        player.items.remove(self)
 
 
 @name("Crystal Ball")
@@ -92,7 +93,7 @@ class CrystalBall(Item):
                 player.change_stat('sanity', -1)
 
     def on_lose(self, player):
-        pass
+        player.items.remove(self)
 
 
 @name("Holy Symbol")
@@ -114,7 +115,7 @@ class Ring(Item):
         sanity_roll = ga.stat_roll(player, 'sanity')
 
     def on_lose(self, player):
-        pass
+        player.items.remove(self)
 
 
 @name("Bite")
@@ -129,9 +130,7 @@ class Bite(Item):
         if might_attack - might_defend <= 0:
             pass
         else:
-            change = might_attack - might_defend
-            if change > 0:
-                player.change_stat('might', -change)
+            player.change_stat('might', -(might_attack - might_defend))
 
 
 @name("Mask")
@@ -156,7 +155,7 @@ class Mask(Item):
                 player.change_stat('sanity', 2)
 
     def on_lose(self, player):
-        pass
+        player.items.remove(self)
 
 
 @name("Girl")
@@ -169,6 +168,7 @@ class Girl(Item):
     def losable(self, player):
         player.change_stat('sanity', -1)
         player.change_stat('knowledge', -1)
+        player.items.remove(self)
 
 
 @name("Dog")
@@ -184,4 +184,4 @@ class Dog(Item):
             print("You already used the dog this turn!")
         else:
             # TODO: add ability to move the dog
-            pass
+            player.items.remove(self)
