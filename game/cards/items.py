@@ -21,11 +21,11 @@ class Amulet(Item):
     def on_acquire(self, player):
         player.items.append(self)
         for i in ['speed', 'might', 'sanity', 'knowledge']:
-            player.raise_stat(i, 1)
+            player.change_stat(i, 1)
 
     def on_lose(self, player):
         for i in ['speed', 'might', 'sanity', 'knowledge']:
-            player.lower_stat(i, 1)
+            player.change_stat(i, -1)
         player.items.remove(self)
 
 
@@ -86,7 +86,7 @@ class BloodDagger(Item):
 
     def on_use(self, player):
         # add 3 dice
-        player.lower_stat('speed', 1)
+        player.change_stat('speed', -1)
 
     def on_lose(self, player):
         player.items.remove(self)
@@ -103,26 +103,26 @@ class Bottle(Item):
         roll = ga.roll_dice(3)
 
         if roll == 6:
-            # choose a room and put your explorer there
+            # TODO choose a room and put your explorer there
             pass
         elif roll == 5:
-            player.raise_stat('might', 2)
-            player.raise_stat('speed', 2)
+            player.change_stat('might', 2)
+            player.change_stat('speed', 2)
         elif roll == 4:
-            player.raise_stat('knowledge', 2)
-            player.raise_stat('sanity', 2)
+            player.change_stat('knowledge', 2)
+            player.change_stat('sanity', 2)
         elif roll == 3:
-            player.raise_stat('knowledge', 1)
-            player.lower_stat('might', 1)
+            player.change_stat('knowledge', 1)
+            player.change_stat('might', -1)
         elif roll == 2:
-            player.lower_stat('knowledge', 2)
-            player.lower_stat('sanity', 2)
+            player.change_stat('knowledge', -2)
+            player.change_stat('sanity', -2)
         elif roll == 1:
-            player.lower_stat('might', 2)
-            player.lower_stat('speed', 2)
+            player.change_stat('might', -2)
+            player.change_stat('speed', -2)
         else:
             for i in ['speed', 'might', 'sanity', 'knowledge']:
-                player.lower_stat(i, 2)
+                player.change_stat(i, -2)
 
         player.items.remove(self)
 
@@ -139,7 +139,9 @@ class DarkDice(Item):
         self.used = 0
 
     def on_use(self, player):
-        if self.used == 0:
+        if self.used != 0:
+            print('You already used that this turn')
+        else:
             roll = ga.roll_dice(3)
 
             if roll == 6:

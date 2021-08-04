@@ -6,12 +6,12 @@ import game_actions as ga
 class Madman(Item):
     def on_acquire(self, player):
         player.items.append(self)
-        player.raise_stat('might', 2)
-        player.lower_stat('sanity', 1)
+        player.change_stat('might', 2)
+        player.change_stat('sanity', -1)
 
     def losable(self, player):
-        player.lower_stat('might', 2)
-        player.raise_stat('sanity', 1)
+        player.change_stat('might', -2)
+        player.change_stat('sanity', 1)
 
 
 @name("Spirit Board")
@@ -30,10 +30,10 @@ class SpiritBoard(Item):
 class Book(Item):
     def on_acquire(self, player):
         player.items.append(self)
-        player.raise_stat('knowledge', 2)
+        player.change_stat('knowledge', 2)
 
     def on_lose(self, player):
-        player.lower_stat('knowledge', 2)
+        player.change_stat('knowledge', -2)
 
 
 @name("Skull")
@@ -87,9 +87,9 @@ class CrystalBall(Item):
             if know_roll >= 4:
                 pass
             elif know_roll == 0:
-                player.lower_stat('sanity', 2)
+                player.change_stat('sanity', -2)
             else:
-                player.lower_stat('sanity', 1)
+                player.change_stat('sanity', -1)
 
     def on_lose(self, player):
         pass
@@ -99,10 +99,10 @@ class CrystalBall(Item):
 class HolySymbol(Item):
     def on_acquire(self, player):
         player.items.append(self)
-        player.raise_stat('sanity', 2)
+        player.change_stat('sanity', 2)
 
     def on_lose(self, player):
-        player.lower_stat('sanity', 2)
+        player.change_stat('sanity', -2)
 
 
 @name("Ring")
@@ -129,7 +129,9 @@ class Bite(Item):
         if might_attack - might_defend <= 0:
             pass
         else:
-            player.lower_stat('might', might_attack - might_defend)
+            change = might_attack - might_defend
+            if change > 0:
+                player.change_stat('might', -change)
 
 
 @name("Mask")
@@ -146,12 +148,12 @@ class Mask(Item):
         else:
             if self.wearing == 0:
                 self.wearing == 1
-                player.raise_stat('knowledge', 2)
-                player.lower_stat('sanity', 2)
+                player.change_stat('knowledge', 2)
+                player.change_stat('sanity', -2)
             else:
                 self.wearing == 0
-                player.lower_stat('knowledge', 2)
-                player.raise_stat('sanity', 2)
+                player.change_stat('knowledge', -2)
+                player.change_stat('sanity', 2)
 
     def on_lose(self, player):
         pass
@@ -161,12 +163,12 @@ class Mask(Item):
 class Girl(Item):
     def on_acquire(self, player):
         player.items.append(self)
-        player.raise_stat('sanity', 1)
-        player.raise_stat('knowledge', 1)
+        player.change_stat('sanity', 1)
+        player.change_stat('knowledge', 1)
 
     def losable(self, player):
-        player.lower_stat('sanity', 1)
-        player.lower_stat('knowledge', 1)
+        player.change_stat('sanity', -1)
+        player.change_stat('knowledge', -1)
 
 
 @name("Dog")

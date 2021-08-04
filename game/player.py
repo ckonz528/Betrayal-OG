@@ -2,6 +2,7 @@ import pygame
 from pygame import locals
 from pygame.sprite import Sprite
 import game.settings as s
+from math import a
 
 
 class Player(Sprite):
@@ -34,7 +35,13 @@ class Player(Sprite):
     def move_player(self):
         pass
 
-    def raise_stat(self, stat, num_levels):
+    def change_stat(self, stat, num_levels=1):
+        '''
+        Alters a player's stat value
+
+        stat (str): a string of the stat that is to change (speed, might, knowledge, sanity)
+        num_levels (int): number of levels the stat will change; positive for increase, negative for decreas
+        '''
         self.stats[stat] = (self.stats[stat][0],
                             self.stats[stat][1] + num_levels)
 
@@ -42,19 +49,17 @@ class Player(Sprite):
         if self.stats[stat][1] >= len(self.stats[stat][0]):
             self.stats[stat] = (self.stats[stat][0], 8)
 
-    def lower_stat(self, stat, num_levels):
-        self.stats[stat] = (self.stats[stat][0],
-                            self.stats[stat][1] - num_levels)
-
         # check for death/ lower bound
         if self.stats[stat][1] <= 0:
             # TODO: write death protocol/ check if haunt mode
             pass
 
-    def physical_damage(self, num_levels):
-        while num_levels > 0:
+    def change_physical(self, num_levels):
+        changes = abs(num_levels)
+
+        while changes > 0:
             # TODO: make this more resilient to input errors
-            print('Choose which stat to lower by one level:')
+            print('Choose which physical stat to change by one level:')
             print('\t1 - Speed')
             print('\t2 - Might')
 
@@ -63,16 +68,18 @@ class Player(Sprite):
             if stat_choice not in [1, 2]:
                 print('Invalid choice. Please enter only 1 or 2.')
             elif stat_choice == 1:
-                self.lower_stat('speed', 1)
-                num_levels -= 1
+                self.change_stat('speed', num_levels/abs(num_levels))
+                changes -= 1
             else:
-                self.lower_stat('might', 1)
-                num_levels -= 1
+                self.change_stat('might', num_levels/abs(num_levels))
+                changes -= 1
 
-    def mental_damage(self, num_levels):
-        while num_levels > 0:
+    def change_mental(self, num_levels):
+        changes = abs(num_levels)
+
+        while changes > 0:
             # TODO: make this more resilient to input errors
-            print('Choose which stat to lower by one level:')
+            print('Choose which mental stat to change by one level:')
             print('\t1 - Sanity')
             print('\t2 - Knowledge')
 
@@ -81,11 +88,11 @@ class Player(Sprite):
             if stat_choice not in [1, 2]:
                 print('Invalid choice. Please enter only 1 or 2.')
             elif stat_choice == 1:
-                self.lower_stat('sanity', 1)
-                num_levels -= 1
+                self.change_stat('sanity', num_levels/abs(num_levels))
+                changes -= 1
             else:
-                self.lower_stat('knowledge', 1)
-                num_levels -= 1
+                self.change_stat('knowledge', num_levels/abs(num_levels))
+                changes -= 1
 
     def display_stats(self):
         pass
