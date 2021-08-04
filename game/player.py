@@ -67,10 +67,10 @@ class Player(Sprite):
             if stat_choice not in [1, 2]:
                 print('Invalid choice. Please enter only 1 or 2.')
             elif stat_choice == 1:
-                self.change_stat('speed', num_levels/abs(num_levels))
+                self.change_stat('speed', int(num_levels/abs(num_levels)))
                 changes -= 1
             else:
-                self.change_stat('might', num_levels/abs(num_levels))
+                self.change_stat('might', int(num_levels/abs(num_levels)))
                 changes -= 1
 
     def change_mental(self, num_levels):
@@ -87,11 +87,16 @@ class Player(Sprite):
             if stat_choice not in [1, 2]:
                 print('Invalid choice. Please enter only 1 or 2.')
             elif stat_choice == 1:
-                self.change_stat('sanity', num_levels/abs(num_levels))
+                self.change_stat('sanity', int(num_levels/abs(num_levels)))
                 changes -= 1
             else:
-                self.change_stat('knowledge', num_levels/abs(num_levels))
+                self.change_stat('knowledge', int(num_levels/abs(num_levels)))
                 changes -= 1
 
     def display_stats(self):
-        pass
+        print(f'Current stats for {self.name}:')
+        print(f'\tSpeed: {self.stats["speed"][0][self.stats["speed"][1]]}')
+        print(f'\tMight: {self.stats["might"][0][self.stats["might"][1]]}')
+        print(f'\tSanity: {self.stats["sanity"][0][self.stats["sanity"][1]]}')
+        print(
+            f'\tKnowledge: {self.stats["knowledge"][0][self.stats["knowledge"][1]]}')
