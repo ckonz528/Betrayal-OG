@@ -51,11 +51,41 @@ class Player(Sprite):
             # TODO: write death protocol/ check if haunt mode
             pass
 
-    def physical_damage(self):
-        pass
+    def physical_damage(self, num_levels):
+        while num_levels > 0:
+            # TODO: make this more resilient to input errors
+            print('Choose which stat to lower by one level:')
+            print('\t1 - Speed')
+            print('\t2 - Might')
 
-    def mental_damage(self):
-        pass
+            stat_choice = int(input('Your choice: '))
+
+            if stat_choice not in [1, 2]:
+                print('Invalid choice. Please enter only 1 or 2.')
+            elif stat_choice == 1:
+                self.lower_stat('speed', 1)
+                num_levels -= 1
+            else:
+                self.lower_stat('might', 1)
+                num_levels -= 1
+
+    def mental_damage(self, num_levels):
+        while num_levels > 0:
+            # TODO: make this more resilient to input errors
+            print('Choose which stat to lower by one level:')
+            print('\t1 - Sanity')
+            print('\t2 - Knowledge')
+
+            stat_choice = int(input('Your choice: '))
+
+            if stat_choice not in [1, 2]:
+                print('Invalid choice. Please enter only 1 or 2.')
+            elif stat_choice == 1:
+                self.lower_stat('sanity', 1)
+                num_levels -= 1
+            else:
+                self.lower_stat('knowledge', 1)
+                num_levels -= 1
 
     def display_stats(self):
         pass
