@@ -111,7 +111,7 @@ class Ring(Item):
         player.items.append(self)
 
     def on_use(self, player):
-        pass
+        sanity_roll = ga.stat_roll(player, 'sanity')
 
     def on_lose(self, player):
         pass
