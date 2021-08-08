@@ -6,11 +6,13 @@ name = CardRegistry()
 
 @name('Adrenaline Shot')
 class Adrenaline(Item):
+    '''A syringe containing a strange fluorescent liquid. Before you attempt a trait roll, you can use this item to add 4 to the result of that roll. Discard this item after you use it.'''
+
     def on_acquire(self, player):
         player.items.append(self)
 
     def on_use(self, player):
-        pass
+        return 4
 
     def on_lose(self, player):
         player.items.remove(self)
@@ -18,9 +20,7 @@ class Adrenaline(Item):
 
 @name('Amulet of the Ages')
 class Amulet(Item):
-    '''Ancient silver and inlaid gems inscribed with blessings.
-    Gain 1 Might, 1 Speed, 1 Knowledge and 1 Sanity now.
-    Lose 3 Might, 3 Speed, 3 Knowledge and 3 Sanity if you lose the Amulet.'''
+    '''Ancient silver and inlaid gems inscribed with blessings. Gain 1 Might, 1 Speed, 1 Knowledge and 1 Sanity now. Lose 3 Might, 3 Speed, 3 Knowledge and 3 Sanity if you lose the Amulet.'''
 
     def on_acquire(self, player):
         player.items.append(self)
@@ -35,22 +35,20 @@ class Amulet(Item):
 
 @name('Angel Feather')
 class AngelFeather(Item):
-    '''A perfect feather fluttering in your hand.
-    When you attempt a roll of any kind, you can call out a number from 0 to 8.
-    Use that number instead of rolling the dice.
-    Discard this item after you use it.'''
+    '''A perfect feather fluttering in your hand. When you attempt a roll of any kind, you can call out a number from 0 to 8. Use that number instead of rolling the dice. Discard this item after you use it.'''
 
     def on_acquire(self, player):
         player.items.append(self)
 
     def on_use(self, player):
-        num = int(input('Pick a number between 0 and 8: '))
+        while True:
+            num = int(input('Pick a number between 0 and 8: '))
 
-        if num not in range(0, 9):
-            print('Invalid choice.')
-        else:
-            player.items.remove(self)
-            return num
+            if num not in range(0, 9):
+                print('Invalid choice.')
+            else:
+                player.items.remove(self)
+                return num
 
     def on_lose(self, player):
         player.items.remove(self)
@@ -58,9 +56,7 @@ class AngelFeather(Item):
 
 @name('Armor')
 class Armor(Item):
-    '''It's just prop armor from a Renaissance Fair, but it's still metal.
-    Any time (not just once per turn) you take physical damage,
-    take one point less of damage. This item can't be stolen.'''
+    '''It's just prop armor from a Renaissance Fair, but it's still metal. Any time (not just once per turn) you take physical damage, take one point less of damage. This item can't be stolen.'''
 
     def on_acquire(self, player):
         player.items.append(self)
@@ -74,15 +70,13 @@ class Armor(Item):
 
 @name('Axe')
 class Axe(Item):
-    '''A weapon. Very Sharp. You roll 1 additional die (maximum of 8 dice)
-    when making a Might attack with this weapon.
-    You can't use another weapon while you're using this one.'''
+    '''A weapon. Very Sharp. You roll 1 additional die (maximum of 8 dice) when making a Might attack with this weapon. You can't use another weapon while you're using this one.'''
 
     def on_acquire(self, player):
         player.items.append(self)
 
     def on_use(self, player):
-        pass
+        return ga.stat_roll(player, 'might', 1)
 
     def on_lose(self, player):
         player.items.remove(self)
@@ -90,18 +84,14 @@ class Axe(Item):
 
 @name('Blood Dagger')
 class BloodDagger(Item):
-    '''A nasty weapon. Needles and tubes extend from the handle...
-    and plunge right into your veins. You roll 3 additional dice
-    (maximum of 8 dice) when making a Might attack with this weapon.
-    If you do, lose 1 Speed. You can't use another weapon while you're using this one.
-    This item cannot be traded or dropped. If it's stolen, take 2 dice of physical damage.'''
+    '''A nasty weapon. Needles and tubes extend from the handle... and plunge right into your veins. You roll 3 additional dice (maximum of 8 dice) when making a Might attack with this weapon. If you do, lose 1 Speed. You can't use another weapon while you're using this one. This item cannot be traded or dropped. If it's stolen, take 2 dice of physical damage.'''
 
     def on_acquire(self, player):
         player.items.append(self)
 
     def on_use(self, player):
-        # add 3 dice
         player.change_stat('speed', -1)
+        return ga.stat_roll(player, 'might', 3)
 
     def on_lose(self, player):
         player.items.remove(self)
@@ -167,13 +157,13 @@ class DarkDice(Item):
                 pass
             elif roll == 4:
                 # gain 1 in a physical trait
-                pass
+                player.change_physical(1)
             elif roll == 3:
                 # immediately move into an adjacent room (no movement cost)
                 pass
             elif roll == 2:
                 # gain 1 in a mental trait
-                pass
+                player.change_mental(1)
             elif roll == 1:
                 # draw an event card
                 pass
@@ -193,13 +183,14 @@ class Dynamite(Item):
         player.items.append(self)
 
     def on_use(self, player):
+        # TODO: add logic to use this on other players in a different room
 
-        speed_roll = ga.stat_roll(player, 'speed')
+        # speed_roll = ga.stat_roll(player, 'speed')
 
-        if speed_roll >= 5:
-            pass
-        else:
-            player.change_pysical(4)
+        # if speed_roll >= 5:
+        #     pass
+        # else:
+        #     player.change_pysical(4)
 
         player.items.remove(self)
 
@@ -215,7 +206,7 @@ class HealingSalve(Item):
         player.items.append(self)
 
     def on_use(self, player):
-        # TODO: add ability to use on another player
+        # TODO: add ability to use on another player, make inputs resistant to errors
         speed_change = input(
             f'Return speed to starting value? ({player.base[0]}) (y/n)')
 
@@ -242,11 +233,12 @@ class Idol(Item):
         player.items.append(self)
         self.used = 0
 
-    def on_use(self, player):
-        if self.used == 1:
+    def on_use(self, player, num_dice):
+        if self.used != 0:
             pass
         else:
             player.change_stat('sanity', -1)
+            return ga.roll_dice(num_dice + 2)
 
     def on_lose(self, player):
         player.items.remove(self)
@@ -314,7 +306,7 @@ class MusicBox(Item):
 
     def on_use(self, player):
         if self.used != 0:
-            pass
+            print('You already used that!')
         else:
             pass
 
@@ -348,7 +340,6 @@ class PuzzleBox(Item):
 
 @name("Rabbit's Foot")
 class RabbitFoot(Item):
-    '''Not so lucky for the rabbit. Once during your turn, you can reroll 1 die. You must keep the second roll.'''
 
     def on_acquire(self, player):
         player.items.append(self)
@@ -398,8 +389,7 @@ class SacrificialDagger(Item):
             use = 0
 
         if use == 1:
-            # when making a might attack roll 3 extra dice
-            pass
+            return ga.stat_roll(player, 'might', 3)
 
     def on_lose(self, player):
         player.items.remove(self)
