@@ -119,4 +119,36 @@
             "steal": 1
         }
     },
+    {
+        "Rabbit's Foot": {
+            "description": "Not so lucky for the rabbit. Once during your turn, you can reroll 1 die. You must keep the second roll.",
+            "drop": 1,
+            "trade": 1,
+            "steal": 1
+        }
+    },
+    {
+        "Revolver": {
+            "description": "A weapon. An old, potent-looking weapon. You can use the Revolver to attack with Speed instead of Might. (Your opponent then defends with Speed and takes physical damage). Roll 1 additional die on your Speed attack roll (maximum 8 dice). With the Revolver, you can attack anyone in the same room or within line of sight (through an uninterrupted straight line of doors). If you attack someone in another room and you lose, you don't take damage. You can't use another weapon while you're using this one.",
+            "drop": 1,
+            "trade": 1,
+            "steal": 1
+        }
+    },
+    {
+        "Sacrificial Dagger": {
+            "description": "A weapon. A twisted shard of iron covered in mysterious symbols and stained with blood. When making a Might attack with this weapon, you roll 3 extra dice (maximum 8 dice), but you must first make a knowledge roll. You can't use another weapon while you're using this one.",
+            "drop": 1,
+            "trade": 1,
+            "steal": 1
+        }
+    },
+    {
+        "Smelling Salts": {
+            "description": "Whew, that's a lungful. If you or another explorer's Knowledge is below it's starting value, and you're in the same room, you can raise that trait to it's starting value by using the Smelling Salts. Discard this item after you use it.",
+            "drop": 1,
+            "trade": 1,
+            "steal": 1
+        }
+    }
 ]

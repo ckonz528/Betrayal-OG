@@ -344,3 +344,78 @@ class PuzzleBox(Item):
 
     def on_lose(self, player):
         player.items.remove(self)
+
+
+@name("Rabbit's Foot")
+class RabbitFoot(Item):
+    '''Not so lucky for the rabbit. Once during your turn, you can reroll 1 die. You must keep the second roll.'''
+
+    def on_acquire(self, player):
+        player.items.append(self)
+        self.used = 0
+
+    def on_use(self, player):
+        if self.used != 0:
+            print('You already used that!')
+        else:
+            return ga.roll_dice(1)
+
+    def on_lose(self, player):
+        player.items.remove(self)
+
+
+@name("Revolver")
+class Revolver(Item):
+
+    def on_acquire(self, player):
+        player.items.append(self)
+
+    def on_use(self, player):
+        pass
+
+    def on_lose(self, player):
+        player.items.remove(self)
+
+
+@name("Sacrificial Dagger")
+class SacrificialDagger(Item):
+
+    def on_acquire(self, player):
+        player.items.append(self)
+
+    def on_use(self, player):
+        know_roll = ga.stat_roll(player, 'knowledge')
+
+        if know_roll >= 6:
+            use = 1
+        elif know_roll >= 3 and know_roll <= 5:
+            player.change_mental(-1)
+            use = 1
+        else:
+            # take 2 dice of physical damage
+            phys_damage = ga.roll_dice(2)
+            player.change_physical(-phys_damage)
+            use = 0
+
+        if use == 1:
+            # when making a might attack roll 3 extra dice
+            pass
+
+    def on_lose(self, player):
+        player.items.remove(self)
+
+
+@name("Smelling Salts")
+class SmellingSalts(Item):
+
+    def on_acquire(self, player):
+        player.items.append(self)
+
+    def on_use(self, player):
+        # TODO: add logic to use on another player
+        # check if stat is below starting value
+        player.stats['knowlege'] = (
+            player.stats['knowlege'][0], player.base[3])
+
+    def on_lose(self, player):
+        player.items.remove(self)
