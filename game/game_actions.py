@@ -15,9 +15,9 @@ def roll_dice(num_rolls):
     return sum(rolls)
 
 
-def stat_roll(player, stat):
+def stat_roll(player, stat, extra_dice=0):
     bar, pos = player.stats[stat]
-    num_dice = bar[pos]
+    num_dice = bar[pos] + extra_dice
 
     return roll_dice(num_dice)
 
