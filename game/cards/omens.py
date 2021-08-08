@@ -2,31 +2,6 @@ from . import Item, name
 import game_actions as ga
 
 
-@name("Madman")
-class Madman(Item):
-    def on_acquire(self, player):
-        player.items.append(self)
-        player.change_stat('might', 2)
-        player.change_stat('sanity', -1)
-
-    def losable(self, player):
-        player.change_stat('might', -2)
-        player.change_stat('sanity', 1)
-        player.items.remove(self)
-
-
-@name("Spirit Board")
-class SpiritBoard(Item):
-    def on_acquire(self, player):
-        player.items.append(self)
-
-    def on_use(self, player):
-        pass
-
-    def on_lose(self, player):
-        player.items.remove(self)
-
-
 @name("Book")
 class Book(Item):
     def on_acquire(self, player):
@@ -37,40 +12,19 @@ class Book(Item):
         player.change_stat('knowledge', -2)
 
 
-@name("Skull")
-class Skull(Item):
+@name("Bite")
+class Bite(Item):
     def on_acquire(self, player):
         player.items.append(self)
 
-    def on_use(self, player):
-        pass
+        might_attack = ga.roll_dice(4)
 
-    def on_lose(self, player):
-        player.items.remove(self)
+        might_defend = ga.stat_roll(player, 'might')
 
-
-@name("Spear")
-class Spear(Item):
-    def on_acquire(self, player):
-        player.items.append(self)
-
-    def on_use(self, player):
-        pass
-
-    def on_lose(self, player):
-        player.items.remove(self)
-
-
-@name("Medallion")
-class Medallion(Item):
-    def on_acquire(self, player):
-        player.items.append(self)
-
-    def on_use(self, player):
-        pass
-
-    def on_lose(self, player):
-        player.items.remove(self)
+        if might_attack - might_defend <= 0:
+            pass
+        else:
+            player.change_stat('might', -(might_attack - might_defend))
 
 
 @name("Crystal Ball")
@@ -96,6 +50,35 @@ class CrystalBall(Item):
         player.items.remove(self)
 
 
+@name("Dog")
+class Dog(Item):
+    def on_acquire(self, player):
+        player.items.append(self)
+        self.dog_pos = player.pos
+        self.dog_speed = 6
+        self.used = 0
+
+    def on_use(self, player):
+        if self.used == 1:
+            print("You already used the dog this turn!")
+        else:
+            # TODO: add ability to move the dog
+            player.items.remove(self)
+
+
+@name("Girl")
+class Girl(Item):
+    def on_acquire(self, player):
+        player.items.append(self)
+        player.change_stat('sanity', 1)
+        player.change_stat('knowledge', 1)
+
+    def losable(self, player):
+        player.change_stat('sanity', -1)
+        player.change_stat('knowledge', -1)
+        player.items.remove(self)
+
+
 @name("Holy Symbol")
 class HolySymbol(Item):
     def on_acquire(self, player):
@@ -106,31 +89,17 @@ class HolySymbol(Item):
         player.change_stat('sanity', -2)
 
 
-@name("Ring")
-class Ring(Item):
+@name("Madman")
+class Madman(Item):
     def on_acquire(self, player):
         player.items.append(self)
+        player.change_stat('might', 2)
+        player.change_stat('sanity', -1)
 
-    def on_use(self, player):
-        sanity_roll = ga.stat_roll(player, 'sanity')
-
-    def on_lose(self, player):
+    def losable(self, player):
+        player.change_stat('might', -2)
+        player.change_stat('sanity', 1)
         player.items.remove(self)
-
-
-@name("Bite")
-class Bite(Item):
-    def on_acquire(self, player):
-        player.items.append(self)
-
-        might_attack = ga.roll_dice(4)
-
-        might_defend = ga.stat_roll(player, 'might')
-
-        if might_attack - might_defend <= 0:
-            pass
-        else:
-            player.change_stat('might', -(might_attack - might_defend))
 
 
 @name("Mask")
@@ -158,30 +127,61 @@ class Mask(Item):
         player.items.remove(self)
 
 
-@name("Girl")
-class Girl(Item):
+@name("Medallion")
+class Medallion(Item):
     def on_acquire(self, player):
         player.items.append(self)
-        player.change_stat('sanity', 1)
-        player.change_stat('knowledge', 1)
 
-    def losable(self, player):
-        player.change_stat('sanity', -1)
-        player.change_stat('knowledge', -1)
+    def on_use(self, player):
+        pass
+
+    def on_lose(self, player):
         player.items.remove(self)
 
 
-@name("Dog")
-class Dog(Item):
+@name("Ring")
+class Ring(Item):
     def on_acquire(self, player):
         player.items.append(self)
-        self.dog_pos = player.pos
-        self.dog_speed = 6
-        self.used = 0
 
     def on_use(self, player):
-        if self.used == 1:
-            print("You already used the dog this turn!")
-        else:
-            # TODO: add ability to move the dog
-            player.items.remove(self)
+        sanity_roll = ga.stat_roll(player, 'sanity')
+
+    def on_lose(self, player):
+        player.items.remove(self)
+
+
+@name("Skull")
+class Skull(Item):
+    def on_acquire(self, player):
+        player.items.append(self)
+
+    def on_use(self, player):
+        pass
+
+    def on_lose(self, player):
+        player.items.remove(self)
+
+
+@name("Spear")
+class Spear(Item):
+    def on_acquire(self, player):
+        player.items.append(self)
+
+    def on_use(self, player):
+        pass
+
+    def on_lose(self, player):
+        player.items.remove(self)
+
+
+@name("Spirit Board")
+class SpiritBoard(Item):
+    def on_acquire(self, player):
+        player.items.append(self)
+
+    def on_use(self, player):
+        pass
+
+    def on_lose(self, player):
+        player.items.remove(self)
