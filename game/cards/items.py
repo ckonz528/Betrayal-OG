@@ -82,6 +82,36 @@ class Axe(Item):
         player.items.remove(self)
 
 
+@name('Bell')
+class Bell(Item):
+    '''A brass bell that makes a resonant clang. Gain 1 Sanity now. Lose 1 sanity if you lose the Bell. Once during your turn after the haunt is revealed you can attempt a sanity roll to use the bell.'''
+
+    def on_acquire(self, player):
+        player.items.append(self)
+        player.change_stat('sanity', 1)
+        self.used = 0
+
+    def on_use(self, player):
+        if self.used != 0:
+            print('You already used that this turn!')
+        else:
+            # TODO: check for haunt
+            san_roll = ga.stat_roll(player, 'sanity')
+
+            if san_roll >= 5:
+                # Move any number of unimpeded heroes 1 space closer to you
+                pass
+            else:
+                # the traitor can move any number of monsters 1 space closer to you. If you are the traitor this result has no effect. If there is no traitor, all monsters move 1 space closer to you
+                pass
+
+            self.used = 1
+
+    def on_lose(self, player):
+        player.change_stat('sanity', -1)
+        player.items.remove(self)
+
+
 @name('Blood Dagger')
 class BloodDagger(Item):
     '''A nasty weapon. Needles and tubes extend from the handle... and plunge right into your veins. You roll 3 additional dice (maximum of 8 dice) when making a Might attack with this weapon. If you do, lose 1 Speed. You can't use another weapon while you're using this one. This item cannot be traded or dropped. If it's stolen, take 2 dice of physical damage.'''
@@ -135,6 +165,17 @@ class Bottle(Item):
         player.items.remove(self)
 
 
+@name('Candle')
+class Candle(Item):
+    '''It makes the shadows move - at least, you hope it's doing that. If you have the Bell, Book, and Candle, gain 2 in each trait. The first time you lose one of those 3 items later in the game, lose 2 from each trait.'''
+
+    def on_acquire(self, player):
+        player.items.append(self)
+
+    def on_lose(self, player):
+        player.items.remove(self)
+
+
 @name('Dark Dice')
 class DarkDice(Item):
     '''Are you feeling lucky? Once per turn, you can roll 3 dice.'''
@@ -170,6 +211,8 @@ class DarkDice(Item):
             else:
                 # reduce all of your traits to lowest value above the skull symbol. Discard the Dark Dice
                 player.items.remove(self)
+
+            self.used = 1
 
     def on_lose(self, player):
         player.items.remove(self)
@@ -237,6 +280,7 @@ class Idol(Item):
         if self.used != 0:
             pass
         else:
+            self.used = 1
             player.change_stat('sanity', -1)
             return ga.roll_dice(num_dice + 2)
 
@@ -291,13 +335,15 @@ class MedicalKit(Item):
             else:
                 pass
 
+            self.used = 1
+
     def on_lose(self, player):
         player.items.remove(self)
 
 
 @name('Music Box')
 class MusicBox(Item):
-    '''A hand-crafted antique. It plays a haunting melody that gets stuck in your head. Once per turn, you can open or close the music box. While the Music Box is open, any explorer or monster with a Sanity trait that enters or starts in the same room (as the box) must make a sanity roll of 4+. If the roll fails, the explorer or monster ends its turn as it is mesmerized by the music. If the explorer or monster carrying the music box becomes mesmerized, they drop the Music Box. If the Music Box was open when it was dropped, and it remains open.'''
+    '''A hand-crafted antique. It plays a haunting melody that gets stuck in your head. Once per turn, you can open or close the music box. While the Music Box is open, any explorer or monster with a Sanity trait that enters or starts in the same room (as the box) must make a sanity roll of 4+. If the roll fails, the explorer or monster ends its turn as it is mesmerized by the music. If the explorer or monster carrying the music box becomes mesmerized, they drop the Music Box. If the Music Box was open when it was dropped, then it remains open.'''
 
     def on_acquire(self, player):
         player.items.append(self)
@@ -308,7 +354,22 @@ class MusicBox(Item):
         if self.used != 0:
             print('You already used that!')
         else:
-            pass
+            self.used = 1
+
+    def on_lose(self, player):
+        player.items.remove(self)
+
+
+@name("Pickpocket's Gloves")
+class Gloves(Item):
+    '''Helping yourself has never seemed so easy. When you are in the same room as another explorer, you can discard this item to take any item that explorer is carrying.'''
+
+    def on_acquire(self, player):
+        player.items.append(self)
+
+    def on_use(self, player):
+        # TODO: figure out how to take stuff from another player
+        player.items.remove(self)
 
     def on_lose(self, player):
         player.items.remove(self)
@@ -330,6 +391,7 @@ class PuzzleBox(Item):
 
             if know_roll < 6:
                 print("You just can't get it open")
+                self.used = 1
             else:
                 # TODO: draw 2 item cards
                 player.items.remove(self)
@@ -349,6 +411,7 @@ class RabbitFoot(Item):
         if self.used != 0:
             print('You already used that!')
         else:
+            self.used = 1
             return ga.roll_dice(1)
 
     def on_lose(self, player):

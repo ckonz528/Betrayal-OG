@@ -40,6 +40,14 @@
         }
     },
     {
+        "Bell": {
+            "description": "???",
+            "drop": 1,
+            "trade": 1,
+            "steal": 1
+        }
+    },
+    {
         "Blood Dagger": {
             "description": "A nasty weapon. Needles and tubes extend from the handle... and plunge right into your veins. You roll 3 additional dice (maximum of 8 dice) when making a Might attack with this weapon. If you do, lose 1 Speed. You can't use another weapon while you're using this one. This item cannot be traded or dropped. If it's stolen, take 2 dice of physical damage.",
             "drop": 0,
@@ -50,6 +58,14 @@
     {
         "Bottle": {
             "description": "An opaque vial containing a black liquid. Once during your turn after the haunt is revealed, you can roll 3 dice and drink from the Bottle. Discard this item after you use it.",
+            "drop": 1,
+            "trade": 1,
+            "steal": 1
+        }
+    },
+    {
+        "Candle": {
+            "description": "It makes the shadows move - at least, you hope it's doing that. If you have the Bell, Book, and Candle, gain 2 in each trait. The first time you lose one of those 3 items later in the game, lose 2 from each trait.",
             "drop": 1,
             "trade": 1,
             "steal": 1
@@ -106,6 +122,14 @@
     {
         "Music Box": {
             "description": "A hand-crafted antique. It plays a haunting melody that gets stuck in your head. Once per turn, you can open or close the music box. While the Music Box is open, any explorer or monster with a Sanity trait that enters or starts in the same room (as the box) must make a sanity roll of 4+. If the roll fails, the explorer or monster ends its turn as it is mesmerized by the music. If the explorer or monster carrying the music box becomes mesmerized, they drop the Music Box. If the Music Box was open when it was dropped, and it remains open.",
+            "drop": 1,
+            "trade": 1,
+            "steal": 1
+        }
+    },
+    {
+        "Pickpocket's Gloves": {
+            "description": "Helping yourself has never seemed so easy. When you are in the same room as another explorer, you can discard this item to take any item that explorer is carrying.",
             "drop": 1,
             "trade": 1,
             "steal": 1
