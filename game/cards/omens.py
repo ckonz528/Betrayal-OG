@@ -1,5 +1,7 @@
-from . import Item, name
-import game_actions as ga
+from . import Item, CardRegistry
+from .. import game_actions as ga
+
+name = CardRegistry()
 
 
 @name("Book")

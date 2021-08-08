@@ -1,5 +1,7 @@
-from . import Item, name
-import game_actions as ga
+from . import Item, CardRegistry
+from .. import game_actions as ga
+
+name = CardRegistry()
 
 
 @name('Adrenaline Shot')
@@ -16,7 +18,9 @@ class Adrenaline(Item):
 
 @name('Amulet of the Ages')
 class Amulet(Item):
-    '''Ancient silver and inlaid gems inscribed with blessings. Gain 1 Might, 1 Speed, 1 Knowledge and 1 Sanity now. Lose 3 Might, 3 Speed, 3 Knowledge and 3 Sanity if you lose the Amulet.'''
+    '''Ancient silver and inlaid gems inscribed with blessings.
+    Gain 1 Might, 1 Speed, 1 Knowledge and 1 Sanity now.
+    Lose 3 Might, 3 Speed, 3 Knowledge and 3 Sanity if you lose the Amulet.'''
 
     def on_acquire(self, player):
         player.items.append(self)
@@ -31,7 +35,10 @@ class Amulet(Item):
 
 @name('Angel Feather')
 class AngelFeather(Item):
-    '''A perfect feather fluttering in your hand. When you attempt a roll of any kind, you can call out a number from 0 to 8. Use that number instead of rolling the dice. Discard this item after you use it.'''
+    '''A perfect feather fluttering in your hand.
+    When you attempt a roll of any kind, you can call out a number from 0 to 8.
+    Use that number instead of rolling the dice.
+    Discard this item after you use it.'''
 
     def on_acquire(self, player):
         player.items.append(self)
@@ -51,7 +58,9 @@ class AngelFeather(Item):
 
 @name('Armor')
 class Armor(Item):
-    '''It's just prop armor from a Renaissance Fair, but it's still metal. Any time (not just once per turn) you take physical damage, take one point less of damage. This item can't be stolen.'''
+    '''It's just prop armor from a Renaissance Fair, but it's still metal.
+    Any time (not just once per turn) you take physical damage,
+    take one point less of damage. This item can't be stolen.'''
 
     def on_acquire(self, player):
         player.items.append(self)
@@ -65,7 +74,9 @@ class Armor(Item):
 
 @name('Axe')
 class Axe(Item):
-    '''A weapon. Very Sharp. You roll 1 additional die (maximum of 8 dice) when making a Might attack with this weapon. You can't use another weapon while you're using this one.'''
+    '''A weapon. Very Sharp. You roll 1 additional die (maximum of 8 dice)
+    when making a Might attack with this weapon.
+    You can't use another weapon while you're using this one.'''
 
     def on_acquire(self, player):
         player.items.append(self)
@@ -79,7 +90,11 @@ class Axe(Item):
 
 @name('Blood Dagger')
 class BloodDagger(Item):
-    '''A nasty weapon. Needles and tubes extend from the handle... and plunge right into your veins. You roll 3 additional dice (maximum of 8 dice) when making a Might attack with this weapon. If you do, lose 1 Speed. You can't use another weapon while you're using this one. This item cannot be traded or dropped. If it's stolen, take 2 dice of physical damage.'''
+    '''A nasty weapon. Needles and tubes extend from the handle...
+    and plunge right into your veins. You roll 3 additional dice
+    (maximum of 8 dice) when making a Might attack with this weapon.
+    If you do, lose 1 Speed. You can't use another weapon while you're using this one.
+    This item cannot be traded or dropped. If it's stolen, take 2 dice of physical damage.'''
 
     def on_acquire(self, player):
         player.items.append(self)

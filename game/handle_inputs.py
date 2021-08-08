@@ -2,6 +2,7 @@ from .graphics import Graphics
 from .game import Game
 import pygame
 import game.settings as s
+from .cards.omens import *
 
 
 class HandleInputs:
@@ -20,11 +21,12 @@ class HandleInputs:
             # place a tile
             mouse_x, mouse_y = pygame.mouse.get_pos()
             room = self.pick_room()
-            if room == None:
+            if room is None:
                 print('No more tiles available for this floor')
             else:
                 self.game_info.floors[self.graphics.current_floor].place_tile(
-                    room, (mouse_x // s.TILE_SIZE + self.graphics.camera[0], mouse_y // s.TILE_SIZE + self.graphics.camera[1]))
+                    room, (mouse_x // s.TILE_SIZE + self.graphics.camera[0],
+                           mouse_y // s.TILE_SIZE + self.graphics.camera[1]))
 
         if event.type == pygame.KEYDOWN:
             # move camera
@@ -79,7 +81,16 @@ class HandleInputs:
                 self.graphics.current_floor = 'basement'
                 self.graphics.camera = (0, 0)
 
+            # item
+            elif keys[pygame.K_i]:
+                self.game_info.hero.use_item()
+            elif keys[pygame.K_x]:
+                self.game_info.hero.drop_item()
+            elif keys[pygame.K_z]:
+                self.game_info.hero.draw_item()
+
     # TODO: move to a separate logic class
+
     def pick_room(self):
         if self.graphics.current_floor == 'basement':
             floor = 1

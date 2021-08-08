@@ -1,11 +1,19 @@
+from random import choice, random
+from typing import List
 import pygame
 from pygame import locals
+from .cards import Item
 from pygame.sprite import Sprite
 import game.settings as s
+from . import game_actions as ga
+from .cards.items import name as item_dict
 
 
 class Player(Sprite):
-    def __init__(self, player_info):
+    def __init__(self, player_info, game_info):
+
+        self.game_info = game_info
+
         # player stats
         self.name = player_info['name']
 
@@ -21,7 +29,7 @@ class Player(Sprite):
                       'sanity': (player_info['sanity'], self.base[2]),
                       'knowledge': (player_info['knowledge'], self.base[3])}
 
-        self.items = []
+        self.items: List[Item] = []
 
         # construct image file name
         img = self.name.lower().replace(' ', '_').replace("'", '')
@@ -100,3 +108,36 @@ class Player(Sprite):
         print(f'\tSanity: {self.stats["sanity"][0][self.stats["sanity"][1]]}')
         print(
             f'\tKnowledge: {self.stats["knowledge"][0][self.stats["knowledge"][1]]}')
+
+    def use_item(self):
+        if len(self.items) == 0:
+            print('ERROR: no items in your inventory')
+            return
+
+        self.display_stats()
+
+        item_names = [item.name for item in self.items]
+        item, name = ga.menu(item_names)
+        print(f'Using {name}!')
+        self.items[item].on_use(self)
+
+        self.display_stats()
+
+    def draw_item(self, item_name=None):
+        if item_name is None:
+            item_name = choice(list(item_dict.registry.keys()))
+
+        print(f'Picking up {item_name}')
+        instance: Item = item_dict.registry[item_name](self.game_info)
+        instance.on_acquire(self)
+
+    def drop_item(self):
+        if len(self.items) == 0:
+            print(f'ERROR: you have no items to drop')
+            return
+
+        item_names = [item.name for item in self.items]
+        item, name = ga.menu(item_names)
+        self.items[item].on_lose(self)
+
+        print(f'Dropped {name}!')

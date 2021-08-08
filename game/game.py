@@ -4,6 +4,7 @@ import json
 from .player import Player
 import random as r
 from typing import Any, Dict, List, Tuple
+from .cards.items import name, BloodDagger, Bottle
 
 
 class Game:
@@ -44,7 +45,7 @@ class Game:
         players: Dict[str, Any] = json.load(
             open(s.get_path('assets', 'data/players.json')))
         self.players: Dict[str, Player] = {
-            player_info['name']: Player(player_info) for player_info in players}
+            player_info['name']: Player(player_info, self) for player_info in players}
 
         # test hero
         # TODO: replace with user-selected characters
