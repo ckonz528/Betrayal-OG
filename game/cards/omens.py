@@ -7,17 +7,18 @@ name = CardRegistry()
 @name("Book")
 class Book(Item):
     def on_acquire(self, player):
-        player.items.append(self)
+        player.omens.append(self)
         player.change_stat('knowledge', 2)
 
     def on_lose(self, player):
+        player.omens.remove(self)
         player.change_stat('knowledge', -2)
 
 
 @name("Bite")
 class Bite(Item):
     def on_acquire(self, player):
-        player.items.append(self)
+        player.omens.append(self)
 
         might_attack = ga.roll_dice(4)
 
@@ -32,7 +33,7 @@ class Bite(Item):
 @name("Crystal Ball")
 class CrystalBall(Item):
     def on_acquire(self, player):
-        player.items.append(self)
+        player.omens.append(self)
         self.used = 0
 
     def on_use(self, player):
@@ -49,13 +50,13 @@ class CrystalBall(Item):
                 player.change_stat('sanity', -1)
 
     def on_lose(self, player):
-        player.items.remove(self)
+        player.omens.remove(self)
 
 
 @name("Dog")
 class Dog(Item):
     def on_acquire(self, player):
-        player.items.append(self)
+        player.omens.append(self)
         self.dog_pos = player.pos
         self.dog_speed = 6
         self.used = 0
@@ -65,49 +66,53 @@ class Dog(Item):
             print("You already used the dog this turn!")
         else:
             # TODO: add ability to move the dog
-            player.items.remove(self)
+            player.omens.remove(self)
+
+    def losable(self, player):
+        player.omens.remove(self)
 
 
 @name("Girl")
 class Girl(Item):
     def on_acquire(self, player):
-        player.items.append(self)
+        player.omens.append(self)
         player.change_stat('sanity', 1)
         player.change_stat('knowledge', 1)
 
     def losable(self, player):
         player.change_stat('sanity', -1)
         player.change_stat('knowledge', -1)
-        player.items.remove(self)
+        player.omens.remove(self)
 
 
 @name("Holy Symbol")
 class HolySymbol(Item):
     def on_acquire(self, player):
-        player.items.append(self)
+        player.omens.append(self)
         player.change_stat('sanity', 2)
 
     def on_lose(self, player):
         player.change_stat('sanity', -2)
+        player.omens.remove(self)
 
 
 @name("Madman")
 class Madman(Item):
     def on_acquire(self, player):
-        player.items.append(self)
+        player.omens.append(self)
         player.change_stat('might', 2)
         player.change_stat('sanity', -1)
 
     def losable(self, player):
         player.change_stat('might', -2)
         player.change_stat('sanity', 1)
-        player.items.remove(self)
+        player.omens.remove(self)
 
 
 @name("Mask")
 class Mask(Item):
     def on_acquire(self, player):
-        player.items.append(self)
+        player.omens.append(self)
         self.wearing = 0
 
     def on_use(self, player):
@@ -126,64 +131,64 @@ class Mask(Item):
                 player.change_stat('sanity', 2)
 
     def on_lose(self, player):
-        player.items.remove(self)
+        player.omens.remove(self)
 
 
 @name("Medallion")
 class Medallion(Item):
     def on_acquire(self, player):
-        player.items.append(self)
+        player.omens.append(self)
 
     def on_use(self, player):
         pass
 
     def on_lose(self, player):
-        player.items.remove(self)
+        player.omens.remove(self)
 
 
 @name("Ring")
 class Ring(Item):
     def on_acquire(self, player):
-        player.items.append(self)
+        player.omens.append(self)
 
     def on_use(self, player):
         sanity_roll = ga.stat_roll(player, 'sanity')
 
     def on_lose(self, player):
-        player.items.remove(self)
+        player.omens.remove(self)
 
 
 @name("Skull")
 class Skull(Item):
     def on_acquire(self, player):
-        player.items.append(self)
+        player.omens.append(self)
 
     def on_use(self, player):
         pass
 
     def on_lose(self, player):
-        player.items.remove(self)
+        player.omens.remove(self)
 
 
 @name("Spear")
 class Spear(Item):
     def on_acquire(self, player):
-        player.items.append(self)
+        player.omens.append(self)
 
     def on_use(self, player):
         pass
 
     def on_lose(self, player):
-        player.items.remove(self)
+        player.omens.remove(self)
 
 
 @name("Spirit Board")
 class SpiritBoard(Item):
     def on_acquire(self, player):
-        player.items.append(self)
+        player.omens.append(self)
 
     def on_use(self, player):
         pass
 
     def on_lose(self, player):
-        player.items.remove(self)
+        player.omens.remove(self)

@@ -29,7 +29,9 @@ class Player(Sprite):
                       'sanity': (player_info['sanity'], self.base[2]),
                       'knowledge': (player_info['knowledge'], self.base[3])}
 
+        # item lists
         self.items: List[Item] = []
+        self.omens: List[Item] = []
 
         # construct image file name
         img = self.name.lower().replace(' ', '_').replace("'", '')
