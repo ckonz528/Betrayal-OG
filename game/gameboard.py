@@ -10,6 +10,7 @@ class Tile(Sprite):
         self.doors = [d in tile_info['doors'] for d in 'NESW']
         self.card = tile_info['card']
         self.floors = tile_info['floors']
+        self.tokens = []
 
         # construct image file name
         img = self.name.lower().replace(' ', '_').replace("'", '')
