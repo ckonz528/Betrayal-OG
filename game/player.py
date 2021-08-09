@@ -105,11 +105,14 @@ class Player(Sprite):
 
     def display_stats(self):
         print(f'Current stats for {self.name}:')
-        print(f'\tSpeed: {self.stats["speed"][0][self.stats["speed"][1]]}')
-        print(f'\tMight: {self.stats["might"][0][self.stats["might"][1]]}')
-        print(f'\tSanity: {self.stats["sanity"][0][self.stats["sanity"][1]]}')
         print(
-            f'\tKnowledge: {self.stats["knowledge"][0][self.stats["knowledge"][1]]}')
+            f'\tSpeed: {self.stats["speed"][0][self.stats["speed"][1]]}, position {self.stats["speed"][1]} of 8')
+        print(
+            f'\tMight: {self.stats["might"][0][self.stats["might"][1]]}, position {self.stats["speed"][1]} of 8')
+        print(
+            f'\tSanity: {self.stats["sanity"][0][self.stats["sanity"][1]]}, position {self.stats["speed"][1]} of 8')
+        print(
+            f'\tKnowledge: {self.stats["knowledge"][0][self.stats["knowledge"][1]]}, position {self.stats["speed"][1]} of 8')
 
     def use_item(self):
         if len(self.items) == 0:
