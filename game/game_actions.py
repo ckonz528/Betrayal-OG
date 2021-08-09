@@ -1,4 +1,7 @@
 import random as r
+from logger import Logger
+
+log = Logger()
 
 
 def roll_dice(num_rolls):
@@ -8,9 +11,13 @@ def roll_dice(num_rolls):
     if num_rolls > 8:
         num_rolls = 8
 
+    log.show_msg(f'Rolling {num_rolls} dice...')
+
     rolls = []
     for i in range(num_rolls):
         rolls.append(r.choice(die))
+
+    log.show_msg(f'You rolled a {sum(rolls)}!')
 
     return sum(rolls)
 
@@ -19,10 +26,12 @@ def stat_roll(player, stat, extra_dice=0):
     bar, pos = player.stats[stat]
     num_dice = bar[pos] + extra_dice
 
+    log.show_msg(f'Making a {stat} roll...')
     return roll_dice(num_dice)
 
 
 def haunt_roll():
+    log.show_msg('Making a haunt roll...')
     return roll_dice(6)
 
 

@@ -5,10 +5,14 @@ from .player import Player
 import random as r
 from typing import Any, Dict, List, Tuple
 from .cards.items import name, BloodDagger, Bottle
+from .logger import Logger
 
 
 class Game:
     def __init__(self):
+        # initialize log
+        self.log = Logger()
+
         # load tiles
         tiles: Dict[str, Any] = json.load(
             open(s.get_path('assets', 'data/rooms.json')))
