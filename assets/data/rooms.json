@@ -1,8 +1,5 @@
 [
     {
-<<<<<<< HEAD
-        "name": "Dusty Hallway",
-=======
         "name": "Abandoned Room",
         "doors": [
             "N",
@@ -32,7 +29,6 @@
     },
     {
         "name": "Ballroom",
->>>>>>> 8cf8d8dda3c97fed45ad5d851ba0309d3aa5109e
         "doors": [
             "N",
             "E",
@@ -43,20 +39,12 @@
         "floors": 2
     },
     {
-<<<<<<< HEAD
-        "name": "Game Room",
-        "doors": [
-            "N",
-            "E",
-            "S"
-=======
         "name": "Basement Landing",
         "doors": [
             "N",
             "E",
             "S",
             "W"
->>>>>>> 8cf8d8dda3c97fed45ad5d851ba0309d3aa5109e
         ],
         "card": "none",
         "floors": 1
@@ -71,20 +59,7 @@
         "floors": 4
     },
     {
-<<<<<<< HEAD
-        "name": "Statuary Corridor",
-        "doors": [
-            "N",
-            "S"
-        ],
-        "card": "event",
-        "floors": 7
-    },
-    {
-        "name": "Creaky Hallway",
-=======
         "name": "Bloody Room",
->>>>>>> 8cf8d8dda3c97fed45ad5d851ba0309d3aa5109e
         "doors": [
             "N",
             "E",
