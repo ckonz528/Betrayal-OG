@@ -1,24 +1,5 @@
 [
     {
-        "name": "Game Room",
-        "doors": [
-            "N",
-            "E",
-            "S"
-        ],
-        "card": "event",
-        "floors": 7
-    },
-    {
-        "name": "Organ Room",
-        "doors": [
-            "W",
-            "S"
-        ],
-        "card": "event",
-        "floors": 7
-    },
-    {
         "name": "Dusty Hallway",
         "doors": [
             "N",
@@ -30,9 +11,10 @@
         "floors": 7
     },
     {
-        "name": "Statuary Corridor",
+        "name": "Game Room",
         "doors": [
             "N",
+            "E",
             "S"
         ],
         "card": "event",
@@ -48,7 +30,16 @@
         "floors": 7
     },
     {
-        "name": "Organ Room",
+        "name": "Statuary Corridor",
+        "doors": [
+            "N",
+            "S"
+        ],
+        "card": "event",
+        "floors": 7
+    },
+    {
+        "name": "Creaky Hallway",
         "doors": [
             "N",
             "E",
